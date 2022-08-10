@@ -1,0 +1,8 @@
+-> An array is an indexed sequence of components
+    * The components of an array are all of the same type
+-> Typically, the array occupies sequential storage locations
+-> Array is a static data structure, that is, the length of teh array is determined when the array is created, and cannot be changed
+-> Each component of the array has a fixed, unique index
+    *Indices range from a lower bound to an upper bound
+-> Any component of the array can be inspected or updated by using its index
+    * This is an efficient operation: O(1) = constant time
