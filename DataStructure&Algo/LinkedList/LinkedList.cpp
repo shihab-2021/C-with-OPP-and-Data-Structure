@@ -262,6 +262,97 @@ void deletionByValueUnique(Node *&head, int value)
         deletionAtSpecificPosition(head, position);
 }
 
+Node *reverseNonRecursive(Node *&head)
+{
+    if(head == NULL)
+    {
+        cout << "The list is empty!!!" << endl << endl;
+        return head;
+    }
+    Node *prev = NULL;
+    Node *current = head;
+    Node *next = head->Next;
+    while(true)
+    {
+        current->Next = prev;
+        prev = current;
+        current = next;
+        if(current == NULL)
+            break;
+        next = next->Next;
+    }
+    return prev;
+}
+
+Node *reverseRecursive(Node *&head)
+{
+    if(head->Next == NULL)
+        return head;
+    Node *newHead = reverseRecursive(head->Next);
+    head->Next->Next = head;
+    head->Next = NULL;
+    return newHead;
+}
+
+int findMid(Node *&head)
+{
+    if(head == NULL)
+        return -1;;
+    Node *slow = head;
+    Node *fast = head;
+    while(fast != NULL && fast->Next != NULL)
+    {
+        slow = slow->Next;
+        fast = fast->Next->Next;
+    }
+    return slow->value;
+}
+
+void makeCycle(Node *&head, int pos)
+{
+    Node *temp = head;
+    Node *startNode;
+    int count = 1;
+    while(temp->Next != NULL)
+    {
+        if(count == pos) 
+            startNode = temp;
+        temp = temp->Next;
+        count++;
+    }
+    temp->Next = startNode;
+}
+
+bool detectCycle(Node *&head)
+{
+    Node *slow = head;
+    Node *fast = head;
+    while(fast!=NULL && fast->Next!=NULL)
+    {
+        slow = slow->Next;
+        fast = fast->Next->Next;
+        if(slow->Next==fast->Next)
+            return true;
+    }
+    return false;
+}
+
+void removeCycle(Node *&head)
+{
+    Node *slow = head;
+    Node *fast = head;
+    do{
+        slow = slow->Next;
+        fast = fast->Next->Next;
+    }while(slow!=fast);
+    fast = head;
+    while(fast->Next != slow->Next)
+    {
+        slow = slow->Next;
+        fast = fast->Next;
+    }
+    slow->Next = NULL;
+}
 
 int main()
 {
@@ -278,6 +369,11 @@ int main()
             << "Choice 9: Deletion at tail" << endl
             << "Choice 10: Deletion at a specific position" << endl
             << "Choice 11: Deletion by value (Unique List)" << endl
+            << "Choice 12: Reversal of list Non-recursive" << endl
+            << "Choice 13: Reversal of list non-recursive" << endl
+            << "Choice 14: Finding the mid (Slow-Fast Pointer Method)" << endl
+            << "Choice 15: Make a cycle at K position" << endl
+            << "Choice 16: Detect cycle in the list" << endl
             << "Choice 0: Exit" << endl;
     
     cout << "Your choice: ";
@@ -369,6 +465,44 @@ int main()
             int delValue;
             cin >> delValue;
             deletionByValueUnique(head, delValue);
+            break;
+        case 12:
+            head = reverseNonRecursive(head);
+            break;
+        case 13:
+            if(head == NULL)
+            {
+                cout << "The list is empty!!!" << endl << endl;
+                break;
+            }
+            head = reverseRecursive(head);
+            break;
+        case 14:
+            int mid;
+            mid = findMid(head);
+            if(mid == -1)
+                cout << "The linked list is empty!!!" << endl << endl;
+            else 
+                cout << "Mid value is " << mid << endl << endl;
+        case 15:
+            cout << "Enter the desired position to create cycle: ";
+            cin >> position;
+            makeCycle(head, position);
+            break;
+        case 16:
+            bool cycleStatus;
+            cycleStatus = detectCycle(head);
+            if(cycleStatus==true)
+                cout << "There is a cycle in the list." << endl << endl;
+            else
+                cout << "There is no cycle in the list!!!" << endl << endl;
+            break;
+        case 17:
+            cycleStatus = detectCycle(head);
+            if(cycleStatus == true)
+                removeCycle(head);
+            else   
+                cout << "There is no cycle in the list!!!" << endl << endl;
             break;
         default:
             break;
