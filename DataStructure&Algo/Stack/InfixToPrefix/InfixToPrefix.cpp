@@ -84,7 +84,8 @@ int prefixEvaluation(string check)
 
 int main()
 {
-    string infix = "(7+(4*5))-(2+0)";
+    // string infix = "(1+2)*(3+4)";
+    string infix = "(1+2)*(3*4)";
     string prefix;
     prefix = infixToPrefix(infix);
     cout << prefix << endl << prefixEvaluation(prefix) << endl;
