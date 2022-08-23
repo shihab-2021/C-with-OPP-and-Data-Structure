@@ -1,2 +1,0 @@
-
-    cout << st.size() << endl;
