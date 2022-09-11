@@ -331,8 +331,9 @@ bool detectCycle(Node *&head)
     {
         slow = slow->Next;
         fast = fast->Next->Next;
-        if(slow->Next==fast->Next)
-            return true;
+        if(fast!=NULL)
+            if(slow->Next==fast->Next)
+                return true;
     }
     return false;
 }
