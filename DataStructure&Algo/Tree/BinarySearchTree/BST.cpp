@@ -108,6 +108,44 @@ treeNode* deletionBST(treeNode* root, int value)
     }
 }
 
+void spacePrint(int level)
+{
+    for(int i=0; i<level; i++)
+        cout << "   ";
+}
+
+void printTree(treeNode *root, int level)
+{
+    if(root == NULL)
+        return;
+    if(root->leftChild == NULL && root->rightChild == NULL) // CASE 1
+    {
+        cout << root->data << endl;
+        return; 
+    }
+    else  // CASE 2
+    {
+        cout << endl;
+        spacePrint(level);
+        cout << "Root: " << root->data << endl;
+    }
+
+    if(root->leftChild != NULL)
+    {
+        spacePrint(level);
+        cout << "Left: ";
+        printTree(root->leftChild, level+1);
+    }
+
+    if(root->rightChild !=NULL)
+    {
+        spacePrint(level);
+        cout << "Right: ";
+        printTree(root->rightChild, level+1);
+    }
+
+}
+
 int main()
 {
     int n;
@@ -122,6 +160,8 @@ int main()
     string traversal = "";
     inOrder(root, traversal);
     cout << traversal << endl;
+
+    printTree(root, 0);
 
     int key;
     cout << "Enter value for search: ";
@@ -138,10 +178,31 @@ int main()
     string afterDelete = "";
     inOrder(root, afterDelete);
     cout << afterDelete << endl;
+    printTree(root, 0);
+    int value;
+        cin >> value;
+        root = insertionBST(root, value);
+        afterDelete = "";
+    inOrder(root, afterDelete);
+    cout << afterDelete << endl;
+        printTree(root, 0);
+        cout << "Enter value for deletion: ";
+    cin >> key;
+    root = deletionBST(root, key);
+    afterDelete = "";
+    inOrder(root, afterDelete);
+    cout << afterDelete << endl;
+    printTree(root, 0);
 
     return 0;
 }
 /*
 9
 11 5 9 43 34 1 2 7 21
+
+11
+10 40 20 8 99 16 15 17 11 14 1
+
+13
+7 5 12 3 6 9 15 1 4 8 10 13 17
 */ 

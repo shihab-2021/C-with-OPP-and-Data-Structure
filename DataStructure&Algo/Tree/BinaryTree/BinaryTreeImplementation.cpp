@@ -218,9 +218,13 @@ int main()
     
     string levelOrderTraversal = "";
     int maxValueAtk = levelOrder(allNodes[0], levelOrderTraversal, 2);
+    cout << "Level Order Traversal: " << levelOrderTraversal << endl;
     cout << endl << maxValueAtk << endl;
 
     boundaryTraversal(allNodes[0]);
+
+    cout << "level: " ; 
+    printLeaves(allNodes[0]);
     
     return 0;
 }

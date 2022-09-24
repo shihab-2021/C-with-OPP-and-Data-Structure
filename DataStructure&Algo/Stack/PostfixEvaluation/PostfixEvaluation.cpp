@@ -1,6 +1,27 @@
 #include<bits/stdc++.h>
 #include"../TemplateStack.h"
-using namespace std;
+using namespace std;    
+
+void printSt(Stack<int> st)
+{
+    string z="";
+    int size = st.size();
+    int arr[st.size()];
+    int j=0;
+        while(!st.empty())
+        {
+            arr[j] = st.pop();
+            j++;
+        }
+        // reverse(z.begin(), z.end());
+        for (int i = size-1; i >= 0; i--)
+        {
+            st.push(arr[i]);
+            z += (to_string(arr[i]) + "  ");
+        }
+        
+        cout << "Stack status:  " << z << endl;
+}
 
 int postfixEvaluation(string check)
 {
@@ -19,22 +40,25 @@ int postfixEvaluation(string check)
                 st.push(a+b);
                 break;
             case '-':
-                st.push(a-b);
+                st.push(b-a);
                 break;
             case '*':
                 st.push(a*b);
                 break;
             case '/':
-                st.push(a/b);
+                st.push(b/a);
                 break;
             case '^':
-                st.push(pow(a, b));
+                st.push(pow(b, a));
                 break;
             
             default:
                 break;
             }
         }
+        cout << check[i] << "   -->   " << st.top() << endl;
+        printSt(st);
+        cout << endl;
     }
     return st.top();
 }
@@ -45,6 +69,7 @@ int postfixEvaluation(string check)
 
 int main()
 {
-    cout << postfixEvaluation("12+34**") << endl;
+    // cout << postfixEvaluation("12+34**") << endl;
+    cout << postfixEvaluation("562^726/-+*781+*54*+-") << endl;
     return 0;
 }

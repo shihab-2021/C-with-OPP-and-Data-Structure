@@ -14,12 +14,50 @@ int precisionCalculate(char c)
         return -1;
 }
 
+// void printSt(Stack<char> st)
+// {
+//     string z="";
+//         while(!st.empty())
+//         {
+//             z += st.pop();
+//         }
+//         cout << z << endl;
+//         reverse(z.begin(), z.end());
+//         for (int i = z.size()-1; i >= 0; i--)
+//         {
+//             st.push(z[i]);
+//         }
+        
+// }
+
+void printSt(Stack<char> st)
+{
+    string z="";
+    int size = st.size();
+    char arr[st.size()];
+    int j=0;
+    while(!st.empty())
+    {
+        arr[j] = st.pop();
+        j++;
+    }
+    //     // reverse(z.begin(), z.end());
+    for (int i = size-1; i >= 0; i--)
+    {
+        st.push(arr[i]);
+        z += (arr[i]);
+    }
+        
+        cout << z << endl;
+}
+
 string infixToPostfix(string check)
 {
     Stack <char> st;
     string result;
     for(int i=0; i<check.length(); i++)
     {
+        cout << check[i] << "      --->      ";
         if(check[i] >= '0' && check[i] <= '9')
             result += check[i];
         else if(check[i] == '(')
@@ -37,6 +75,7 @@ string infixToPostfix(string check)
                 result += st.pop();
             st.push(check[i]);
         }
+        printSt(st);
     }
     while(!st.empty())
         result += st.pop();
@@ -61,16 +100,16 @@ int postfixEvaluation(string check)
                 st.push(a+b);
                 break;
             case '-':
-                st.push(a-b);
+                st.push(b-a);
                 break;
             case '*':
                 st.push(a*b);
                 break;
             case '/':
-                st.push(a/b);
+                st.push(b/a);
                 break;
             case '^':
-                st.push(pow(a, b));
+                st.push(pow(b, a));
                 break;
             
             default:
@@ -88,7 +127,8 @@ int postfixEvaluation(string check)
 int main()
 {
     // string infix = "(1+2)*(3+4)";
-    string infix = "(1+2)*(3*4)";
+    // string infix = "(1+2)*(3*4)";
+    string infix = "(5*((6^2)+(7-(2/6))))-((7*(8+1))+(5*4))";
     string postfix;
     postfix = infixToPostfix(infix);
     cout << postfix << endl << postfixEvaluation(postfix) << endl;

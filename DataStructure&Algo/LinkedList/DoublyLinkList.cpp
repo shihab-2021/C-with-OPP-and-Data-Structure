@@ -211,7 +211,6 @@ void deletionAtHead(Node *&head)
 void deletionAtTail(Node *&head)
 {
     Node *temp = head;
-    if(temp != NULL) 
 }
 
 int main()

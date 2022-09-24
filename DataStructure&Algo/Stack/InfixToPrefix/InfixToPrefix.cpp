@@ -14,6 +14,27 @@ int precisionCalculate(char c)
         return -1;
 }
 
+void printSt(Stack<char> st)
+{
+    string z="";
+    int size = st.size();
+    char arr[st.size()];
+    int j=0;
+    while(!st.empty())
+    {
+        arr[j] = st.pop();
+        j++;
+    }
+    //     // reverse(z.begin(), z.end());
+    for (int i = size-1; i >= 0; i--)
+    {
+        st.push(arr[i]);
+        z += (arr[i]);
+    }
+        
+        cout << z << endl;
+}
+
 string infixToPrefix(string check)
 {
     reverse(check.begin(), check.end()); // it is a build in function to reverse a string
@@ -21,6 +42,7 @@ string infixToPrefix(string check)
     string result;
     for(int i=0; i<check.length(); i++)
     {
+        cout << check[i] << "      --->      ";
         if(check[i] >= '0' && check[i] <= '9')
             result += check[i];
         else if(check[i] == ')')
@@ -38,9 +60,12 @@ string infixToPrefix(string check)
                 result += st.pop();
             st.push(check[i]);
         }
+        printSt(st);
     }
     while(!st.empty())
+    {
         result += st.pop();
+    }
     reverse(result.begin(), result.end());
     return result;
 }
@@ -85,7 +110,8 @@ int prefixEvaluation(string check)
 int main()
 {
     // string infix = "(1+2)*(3+4)";
-    string infix = "(1+2)*(3*4)";
+    // string infix = "(1+2)*(3*4)";
+    string infix = "(5*((6^2)+(7-(2/6))))-((7*(8+1))+(5*4))";
     string prefix;
     prefix = infixToPrefix(infix);
     cout << prefix << endl << prefixEvaluation(prefix) << endl;
