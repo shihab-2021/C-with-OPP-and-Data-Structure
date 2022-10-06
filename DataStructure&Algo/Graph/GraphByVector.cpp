@@ -4,21 +4,19 @@ using namespace std;
 vector<int> v[100];
 bool visit[100];
 
-void bfs(int src)
+void BFS(int source)
 {
     queue<int> q;
-    q.push(src);
+    q.push(source);
     while (!q.empty())
     {
         int parent = q.front();
+        cout << parent << " ";
         q.pop();
-        if(visit[parent] == true)
-            continue;
-        cout << parent << endl;
-        for (int i = 0; i < v[parent].size(); i++)
+        for(int i=0; i<v[parent].size(); i++)
         {
             int children = v[parent][i];
-            if(visit[children] == false) 
+            if(visit[children]==false)
                 q.push(children);
         }
         visit[parent] = true;
@@ -26,54 +24,46 @@ void bfs(int src)
     
 }
 
-void dfs(int src)
+void DFS(int source)
 {
-    cout << src << endl ;
-    visit[src] = true;
-    for(int i=0; i<v[src].size(); i++)
+    cout << source << " ";
+    visit[source] = true;
+    for(int i=0; i<v[source].size(); i++)
     {
-        int children = v[src][i];
-        if(visit[children] == false)
-            dfs(children);
+        int children = v[source][i];
+        if(visit[children]==false)
+            DFS(children);
     }
 }
 
 int main()
 {
-    int n, e;
-    cin >> n >> e;
-    for(int i=0; i<e; i++)
+    int node, edge, root;
+    cin >> node >> edge;
+    for (int i = 0; i < edge; i++)
     {
         int a, b;
         cin >> a >> b;
+        if(i==0)
+            root = a;
         v[a].push_back(b);
         v[b].push_back(a);
     }
-    memset(visit, false, sizeof(visit));
-    bfs(0);
-    // dfs(1);
+    // Just print the vector(only if needed)
+    // for (int i = 0; i < node; i++)
+    // {
+    //     cout << i << ": ";
+    //     for (int j = 0; j < v[i].size(); j++)
+    //         cout << v[i][j] << ", ";
+    //     cout << endl;
+    // }
 
+    memset(visit, false, sizeof(visit));
+
+    // cout << "BFS: ";
+    // BFS(root);
+    cout << "DFS: "; 
+    DFS(root);
+    
     return 0;
 }
-
-/*
-for bfs
-6 7 
-5 3
-4 5
-1 0
-1 2
-1 3
-3 0
-4 3
-
-for dfs
-7 7
-1 2
-1 6
-2 3
-2 4
-6 4
-6 7
-4 5
-*/ 
