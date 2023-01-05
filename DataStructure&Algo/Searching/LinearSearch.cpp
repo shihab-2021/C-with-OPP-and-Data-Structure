@@ -3,37 +3,32 @@ using namespace std;
 
 int main()
 {
-    int size;
-    cout << "Please enter the number of input: ";
-    cin >> size;
-    int arr[size];
-    cout << "Please enter the inputs one by one: " << endl;
-    for (int i = 0; i < size; i++)
+    int size, t;
+    cin >> size >> t;
+    string s;
+    cin >> s;
+    while (t--)
     {
-        cin >> arr[i];
-    }
-    char c;
-    cout << "Do you want to search? (Y/N) : " ;
-    cin >> c;
-    while (toupper(c) == 'Y')
-    {
-        int checkValue;
-        cout << "Please enter the value you want to search: ";
-        cin >> checkValue;
-        int flag = 0;
-        for (int i = 0; i < size; i++)
+        string ts;
+        cin >> ts;
+        if(ts=="pop_back")
+            s.pop_back();
+        else if(ts=="front")
+            cout << s[0] << endl;
+        else if(ts=="back")
+            cout << s[s.length()-1] << endl;
+        else if(ts=="sort")
         {
-            if(arr[i] == checkValue)
-            {
-                flag = 1;
-                cout << "Index No: " << i << " Position No: " << i+1 << endl;
-            }
+            int l, r;
+            cin >> l >> r;
+            sort(s.begin()+(l-1), s.begin()+(r-1));
         }
-        if(flag == 0)
-            cout << "Not Found!" << endl;
-        
-        cout << endl << "Do you want to continue searching? (Y/N) : " ;
-        cin >> c;
+        else if(ts=="reverse")
+        {
+            int l, r;
+            cin >> l >> r;
+            reverse(s[l-1], s[r-1]);
+        }
     }
     
     return 0;
